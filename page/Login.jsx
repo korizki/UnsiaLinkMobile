@@ -1,46 +1,60 @@
-import { View, Image, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from "react-native"
+import { View, Image, Text, StatusBar, StyleSheet, Dimensions, Alert, TouchableOpacity, ScrollView } from "react-native"
 import illus from '../assets/loginmin.png'
+import MiniMessage from "../components/MiniMessage";
+import { useState } from "react";
 import InputField from "../components/InputFields";
 import { pageTitle } from "../misc/globalStyle";
 
 export default function Login({ navigation }) {
+   const [authData, setAuthData] = useState({ email: '', password: '' })
+   const [errorMsg, setErrorMsg] = useState('')
+   const handleLogin = () => {
+      if (authData.email || authData.password) {
+         navigation.navigate("HomeTab")
+      } else {
+         setErrorMsg('⚠️ Email dan Password wajib diisi.')
+      }
+   }
    return (
-      <ScrollView style={styles.container}>
-         <View style={styles.headwrap}>
-            <Image source={illus} style={styles.ilus} />
-            <Text style={{ ...pageTitle, ...styles.title }} >UNSIA <Text style={styles.yellow}>Link</Text></Text>
-            <Text style={styles.subtitle}>"Saling Terhubung dan Berbagi"</Text>
-         </View>
-         <View>
-            <InputField
-               secure={false}
-               label="Email"
-               placeholder="e.g. admin@unsia.ac.id"
-               action={() => false}
-            />
-            <InputField
-               secure={true}
-               label="Password"
-               placeholder="Type Your Password"
-               action={() => false}
-            />
-         </View>
-         <StatusBar style="auto" />
-         <TouchableOpacity
-            activeOpacity={0.9}
-            style={styles.btn}
-            onPress={() => navigation.navigate('Login')}
-         >
-            <Text style={styles.btntext}>Log In</Text>
-         </TouchableOpacity>
-         <TouchableOpacity
-            style={styles.haveac}
-            activeOpacity={1}
-            onPress={() => navigation.navigate('Signup')}
-         >
-            <Text style={styles.haveacc}>Belum punya Akun, Daftar disini!</Text>
-         </TouchableOpacity>
-      </ScrollView>
+      <View style={styles.wrapper}>
+         {errorMsg ? <MiniMessage msg={errorMsg} hide={() => setErrorMsg('')} /> : false}
+         <ScrollView style={styles.container}>
+            <View style={styles.headwrap}>
+               <Image source={illus} style={styles.ilus} />
+               <Text style={{ ...pageTitle, ...styles.title }} >UNSIA <Text style={styles.yellow}>Link</Text></Text>
+               <Text style={styles.subtitle}>"Saling Terhubung dan Berbagi"</Text>
+            </View>
+            <View>
+               <InputField
+                  secure={false}
+                  label="Email"
+                  placeholder="e.g. admin@unsia.ac.id"
+                  action={text => setAuthData(prev => ({ ...prev, email: text }))}
+               />
+               <InputField
+                  secure={true}
+                  label="Password"
+                  placeholder="Type Your Password"
+                  action={text => setAuthData(prev => ({ ...prev, password: text }))}
+               />
+            </View>
+            <StatusBar style="auto" />
+            <TouchableOpacity
+               activeOpacity={0.9}
+               style={styles.btn}
+               onPress={handleLogin}
+            >
+               <Text style={styles.btntext}>Log In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+               style={styles.haveac}
+               activeOpacity={1}
+               onPress={() => navigation.navigate('Signup')}
+            >
+               <Text style={styles.haveacc}>Belum punya Akun, Daftar disini!</Text>
+            </TouchableOpacity>
+         </ScrollView>
+      </View>
    )
 }
 
@@ -73,9 +87,15 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       height: Dimensions.get("screen").height,
-      backgroundColor: '#F5F5F5',
       paddingHorizontal: 24,
       paddingVertical: 24,
+      position: 'relative',
+   },
+   wrapper: {
+      flex: 1,
+      // height: Dimensions.get("screen").height,
+      backgroundColor: '#F5F5F5',
+      position: 'relative'
    },
    haveac: {
       padding: 8,
@@ -97,4 +117,5 @@ const styles = StyleSheet.create({
       padding: 16,
       backgroundColor: '#3E54AC'
    },
+
 });

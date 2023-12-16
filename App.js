@@ -1,33 +1,117 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Tab } from './components/NavTab';
 import Login from './page/Login';
+import Home from './page/Home';
 import SignUp from './page/SignUp';
+import Config from './page/Config';
+import Message from './page/Message'
+import Group from './page/Group';
+import homeIc from './assets/ic_home.png'
+import groupIc from './assets/ic_group.png'
+import msgIc from './assets/ic_msg.png'
+import userIc from './assets/ic_user.png'
 
 const Stack = createNativeStackNavigator()
-
+// yellow = F7C04A // birudark = 3E54AC // bg = F5F5F5
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="Signup"
-          component={SignUp}
-          options={{
-            animation: 'slide_from_right'
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Tab.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
+            name="Signup"
+            component={SignUp}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="HomeTab"
+            component={HomeTabs}
+            options={{
+              headerShown: false,
+              animation: 'fade'
+            }}
+          />
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    </>
   );
+}
+// ketika user sudah login
+const HomeTabs = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: '#3E54AC',
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500'
+        },
+        tabBarInactiveTintColor: 'rgb(200,200,200)',
+        tabBarStyle: {
+          padding: 4,
+          height: 60,
+          paddingBottom: 8,
+          position: 'absolute'
+        }
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Image source={homeIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Message"
+        component={Message}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Image source={msgIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Group"
+        component={Group}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Image source={groupIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="User"
+        component={Config}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Image source={userIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
+          )
+        }}
+      />
+    </Tab.Navigator>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -37,4 +121,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  activeIc: {
+    opacity: 1,
+  },
+  icon: {
+    width: 28,
+    opacity: 0.2,
+    marginBottom: 0,
+    height: undefined,
+    aspectRatio: 0.5 / 0.5
+  },
+  navtext: {
+    fontSize: 12,
+    color: 'rgb(170,170,170)',
+    fontWeight: '500'
+  },
+  navitem: {
+    padding: 8,
+    alignItems: 'center'
+  },
+  navwrap: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderTopColor: 'rgb(200,200,200)',
+    backgroundColor: 'white',
+    justifyContent: 'space-around',
+  }
 });
