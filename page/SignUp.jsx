@@ -1,5 +1,6 @@
-import { View, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, Touchable } from "react-native"
+import { View, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, Image } from "react-native"
 import InputField from "../components/InputFields";
+import bgleft from '../assets/bgleft.png'
 import { pageTitle, headcont, subtitle } from "../misc/globalStyle";
 
 export default function SignUp({ navigation }) {
@@ -13,33 +14,44 @@ export default function SignUp({ navigation }) {
             label="Email"
             placeholder="e.g. admin@unsia.ac.id"
             action={() => false}
+            secure={false}
          />
          <InputField
             label="Password"
             placeholder="Type Your Password"
             action={() => false}
+            secure={true}
          />
          <InputField
+            secure={true}
             label="Confirm Password"
             placeholder="Re-Type Your Password"
             action={() => false}
          />
          <TouchableOpacity activeOpacity={0.9} style={styles.btn}>
-            <Text style={styles.btntext}>Register</Text>
+            <Text style={styles.btntext}>Daftar</Text>
          </TouchableOpacity>
          <TouchableOpacity
             style={styles.haveac}
             activeOpacity={1}
             onPress={() => navigation.navigate('Login')}
          >
-            <Text style={styles.haveacc}>Already have an Account</Text>
+            <Text style={styles.haveacc}>Sudah punya Akun, silahkan Login.</Text>
          </TouchableOpacity>
          <StatusBar style="auto" />
+         <Image source={bgleft} style={styles.bgleft} />
       </View>
    )
 }
 
 const styles = StyleSheet.create({
+   bgleft: {
+      width: 150,
+      height: 150,
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+   },
    haveac: {
       padding: 8,
       marginTop: 12,

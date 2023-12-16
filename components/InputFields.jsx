@@ -1,11 +1,16 @@
 import { TextInput, View, Text, StatusBar, StyleSheet, Dimensions } from "react-native"
 
-export default function InputField({ label, placeholder, action }) {
+export default function InputField({ label, placeholder, action, secure }) {
    return (
       <View style={styles.container}>
          <StatusBar style="auto" />
          <Text style={styles.textinp}>{label}</Text>
-         <TextInput style={styles.input} placeholder={placeholder} onChange={action} />
+         <TextInput
+            secureTextEntry={secure}
+            style={styles.input}
+            placeholder={placeholder}
+            onChange={action}
+         />
       </View>
    )
 }
