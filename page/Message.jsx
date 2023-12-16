@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, StyleSheet, Dimensions, Image } from "react-native";
 import msgIc from '../assets/ic_msg.png'
 import { pageTitle, subtitle } from "../misc/globalStyle";
+import ButtonAdd from "../components/ButtonAdd";
 
 export default function Message({ navigation }) {
    const message = []
@@ -10,6 +11,7 @@ export default function Message({ navigation }) {
          <ScrollView>
             <Text>Ini Halaman Message</Text>
          </ScrollView>
+         <ButtonAdd float={true} text="+" />
       </View>
    ) : (
       <View style={styles.nomsg}>
@@ -18,6 +20,7 @@ export default function Message({ navigation }) {
             <Text style={styles.pageTitle}>Yah, masih kosong</Text>
             <Text style={styles.subtitle}>Belum ada percakapan yang tersimpan</Text>
          </View>
+         <ButtonAdd float={false} text={"Buat Pesan Baru"} />
       </View>
    )
 }

@@ -34,6 +34,7 @@ export default function App() {
             component={SignUp}
             options={{
               headerShown: false,
+              animation: 'slide_from_right'
             }}
           />
           <Stack.Screen

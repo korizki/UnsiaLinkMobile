@@ -1,5 +1,4 @@
 import { View, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
-import Navigation from "../components/Navigation";
 
 export default function Config({ navigation }) {
    return (

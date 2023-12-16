@@ -1,4 +1,4 @@
-import { View, Image, Text, StatusBar, StyleSheet, Dimensions, Alert, TouchableOpacity, ScrollView } from "react-native"
+import { View, Image, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from "react-native"
 import illus from '../assets/loginmin.png'
 import MiniMessage from "../components/MiniMessage";
 import { useState } from "react";
@@ -17,12 +17,13 @@ export default function Login({ navigation }) {
    }
    return (
       <View style={styles.wrapper}>
+         <StatusBar barStyle="dark-content" backgroundColor={'#F1F1F1'} />
          {errorMsg ? <MiniMessage msg={errorMsg} hide={() => setErrorMsg('')} /> : false}
          <ScrollView style={styles.container}>
             <View style={styles.headwrap}>
                <Image source={illus} style={styles.ilus} />
                <Text style={{ ...pageTitle, ...styles.title }} >UNSIA <Text style={styles.yellow}>Link</Text></Text>
-               <Text style={styles.subtitle}>"Saling Terhubung dan Berbagi"</Text>
+               <Text style={styles.subtitle}>Saling Terhubung dan Berbagi</Text>
             </View>
             <View>
                <InputField
