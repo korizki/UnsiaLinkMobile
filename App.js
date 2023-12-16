@@ -71,7 +71,7 @@ const HomeTabs = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Beranda"
         component={Home}
         options={{
           headerShown: false,
@@ -81,10 +81,9 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Message"
+        name="Pesan"
         component={Message}
         options={{
-          headerShown: false,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={msgIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -94,7 +93,6 @@ const HomeTabs = () => {
         name="Group"
         component={Group}
         options={{
-          headerShown: false,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={groupIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -104,7 +102,6 @@ const HomeTabs = () => {
         name="User"
         component={Config}
         options={{
-          headerShown: false,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={userIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
