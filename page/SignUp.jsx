@@ -7,8 +7,8 @@ export default function SignUp({ navigation }) {
    return (
       <View style={styles.container}>
          <View style={styles.headcont}>
-            <Text style={pageTitle}>Hello, Welcome to club 🥳</Text>
-            <Text style={subtitle}>Please complete form below.</Text>
+            <Text style={pageTitle}>Hello, Ayo Bergabung 🥳</Text>
+            <Text style={subtitle}>Silahkan lengkapi form berikut.</Text>
          </View>
          <InputField
             label="Email"
@@ -18,14 +18,14 @@ export default function SignUp({ navigation }) {
          />
          <InputField
             label="Password"
-            placeholder="Type Your Password"
+            placeholder="Ketikkan Password"
             action={() => false}
             secure={true}
          />
          <InputField
             secure={true}
             label="Confirm Password"
-            placeholder="Re-Type Your Password"
+            placeholder="Ulangi Ketik Password"
             action={() => false}
          />
          <TouchableOpacity activeOpacity={0.9} style={styles.btn}>
@@ -38,7 +38,7 @@ export default function SignUp({ navigation }) {
          >
             <Text style={styles.haveacc}>Sudah punya Akun, silahkan Login.</Text>
          </TouchableOpacity>
-         <StatusBar style="auto" />
+         <StatusBar barStyle="dark-content" backgroundColor={'#f5f5f5'} />
          <Image source={bgleft} style={styles.bgleft} />
       </View>
    )
@@ -81,5 +81,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#F5F5F5',
       paddingHorizontal: 24,
       paddingVertical: 24,
+      paddingTop: 52,
    },
 });

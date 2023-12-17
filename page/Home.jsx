@@ -19,10 +19,10 @@ export default function Home({ navigation }) {
    })
    return (
       <View style={styles.wrappage}>
-         <StatusBar barStyle="dark-content" backgroundColor={'#F3F3F3'} />
+         <StatusBar barStyle="dark-content" backgroundColor={'white'} />
          <SafeAreaView style={styles.header}>
-            <TextInput placeholder="Apa yang anda pikirkan ..." style={styles.inppost} />
-            <TouchableOpacity style={styles.sharebtn}>
+            <TextInput placeholder="Apa yang anda pikirkan ..." style={styles.inppost} selectionColor={'#31304D'} />
+            <TouchableOpacity style={styles.sharebtn} activeOpacity={0.8}>
                <Text style={styles.text}>Bagikan</Text>
             </TouchableOpacity>
          </SafeAreaView>

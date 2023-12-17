@@ -17,7 +17,7 @@ export default function Login({ navigation }) {
    }
    return (
       <View style={styles.wrapper}>
-         <StatusBar barStyle="dark-content" backgroundColor={'#F1F1F1'} />
+         <StatusBar barStyle="dark-content" backgroundColor={'#f5f5f5'} />
          {errorMsg ? <MiniMessage msg={errorMsg} hide={() => setErrorMsg('')} /> : false}
          <ScrollView style={styles.container}>
             <View style={styles.headwrap}>

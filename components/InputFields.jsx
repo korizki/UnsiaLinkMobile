@@ -9,6 +9,7 @@ export default function InputField({ label, placeholder, action, secure }) {
             secureTextEntry={secure}
             style={styles.input}
             placeholder={placeholder}
+            selectionColor={'#31304D'}
             onChangeText={text => action(text)}
          />
       </View>

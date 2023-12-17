@@ -55,19 +55,20 @@ export default function App() {
 const HomeTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="User"
       screenOptions={{
         tabBarActiveTintColor: '#3E54AC',
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: '500'
         },
+        tabBarHideOnKeyboard: true,
         tabBarInactiveTintColor: 'rgb(200,200,200)',
         tabBarStyle: {
-          padding: 4,
-          height: 60,
+          padding: 6,
+          height: 56,
           paddingBottom: 8,
-          position: 'absolute'
+          position: 'absolute',
         }
       }}
     >
@@ -103,6 +104,7 @@ const HomeTabs = () => {
         name="User"
         component={Config}
         options={{
+          headerShown: false,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={userIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   icon: {
-    width: 28,
+    width: 24,
     opacity: 0.2,
     marginBottom: 0,
     height: undefined,
