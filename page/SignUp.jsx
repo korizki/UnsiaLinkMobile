@@ -3,6 +3,7 @@ import InputField from "../components/InputFields";
 import bgleft from '../assets/bgleft.png'
 import { pageTitle, headcont, subtitle } from "../misc/globalStyle";
 import { db } from "../config/firebase";
+import ModalWaiting from "../components/Waiting";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
 
@@ -33,14 +34,7 @@ export default function SignUp({ navigation }) {
    return (
       <View style={styles.container}>
          { /* jika loading */
-            <Modal visible={isLoading} transparent={true} animationType="slide">
-               <View style={styles.modalwrapper}>
-                  <View style={styles.modalwait}>
-                     <Text style={styles.modTitle}>Mohon Tunggu</Text>
-                     <Text style={styles.sub}>Permintaan sedang kami proses ...</Text>
-                  </View>
-               </View>
-            </Modal>
+            <ModalWaiting isLoading={isLoading} />
          }
          <View style={styles.headcont}>
             <Text style={pageTitle}>Hello, Ayo Bergabung 🥳</Text>
@@ -71,6 +65,7 @@ export default function SignUp({ navigation }) {
          <TouchableOpacity
             style={styles.haveac}
             activeOpacity={1}
+            onPress={() => navigation.navigate("Login")}
          >
             <Text style={styles.haveacc}>Sudah punya Akun, silahkan Login.</Text>
          </TouchableOpacity>
@@ -81,27 +76,6 @@ export default function SignUp({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-   modalwrapper: {
-      flex: 1,
-      justifyContent: 'flex-end'
-   },
-   modTitle: {
-      fontSize: 28,
-      fontWeight: '500',
-      paddingBottom: 12,
-   },
-   sub: {
-      fontSize: 18,
-      color: 'rgb(150,150,150)'
-   },
-   modalwait: {
-      backgroundColor: 'white',
-      borderTopStartRadius: 16,
-      borderTopEndRadius: 16,
-      height: 300,
-      alignItems: 'center',
-      justifyContent: 'center'
-   },
    bgleft: {
       width: 150,
       height: 150,
