@@ -6,6 +6,7 @@ import { db } from "../config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import InputField from "../components/InputFields";
 import ModalWaiting from "../components/Waiting";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { pageTitle } from "../misc/globalStyle";
 
 export default function Login({ navigation }) {
@@ -24,7 +25,12 @@ export default function Login({ navigation }) {
          if (data.length) {
             let user = data[0]
             if (user.password == authData.password) {
-               navigation.navigate("HomeTab")
+               try {
+                  await AsyncStorage.setItem('user', JSON.stringify(user))
+                  navigation.navigate("HomeTab")
+               } catch (err) {
+                  Alert.alert('Gagal setup data user')
+               }
             } else {
                Alert.alert('Password tidak sesuai!')
             }

@@ -1,23 +1,27 @@
 import { View, TextInput, Text, ScrollView, StyleSheet, Dimensions, Image, BackHandler, Alert, StatusBar, TouchableOpacity } from "react-native";
-
 import { useFocusEffect } from '@react-navigation/native'
 import postIc from '../assets/ic_feed.png'
 import { pageTitle, subtitle } from "../misc/globalStyle";
 import { useEffect, useState } from "react";
 import { db } from '../config/firebase'
-import { getDocs, collection, query } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDocs, deleteDoc, collection, query, addDoc, doc, serverTimestamp, orderBy, where } from "firebase/firestore";
 import CardPost from "../components/CardPost";
+import ModalWaiting from "../components/Waiting";
 
 export default function Home({ navigation }) {
    const [posts, setListPost] = useState([])
+   const [isLoading, setIsLoading] = useState(false)
+   const [newPost, setNewPost] = useState('')
+   const [user, setUser] = useState(null)
    // get listpost
    const getListPost = async () => {
       try {
-         const q = query(collection(db, "post"))
+         const q = query(collection(db, "post"), orderBy("created_date", "desc"))
          const docSnap = await getDocs(q)
          let listPost = []
          docSnap.forEach(it => {
-            listPost.push(it.data())
+            listPost.push({ ...it.data(), id: it.id })
          })
          setListPost(listPost)
       }
@@ -25,7 +29,40 @@ export default function Home({ navigation }) {
          Alert.alert('Gagal mendapatkan data Post terbaru.')
       }
    }
-
+   const deletePost = async (id) => {
+      setIsLoading(true)
+      return await deleteDoc(doc(db, "post", id)).then(() => {
+         setIsLoading(false)
+         getListPost()
+      }).catch(() => {
+         setIsLoading(false)
+         Alert.alert('Gagal menghapus postingan.')
+      })
+   }
+   // update user info
+   const updateUserInfo = async () => {
+      const userInfo = await AsyncStorage.getItem('user')
+      setUser(JSON.parse(userInfo))
+   }
+   // add new post
+   const addNewPost = async () => {
+      if (newPost != '') {
+         setIsLoading(true)
+         await addDoc(collection(db, 'post'), {
+            id_user: 'Rizki Ramadhan',
+            created_date: serverTimestamp(),
+            content: newPost,
+         }).then(() => {
+            setIsLoading(false)
+            setNewPost("")
+            getListPost()
+            Alert.alert('Berhasil menambahkan postingan baru')
+         }).catch(() => {
+            setIsLoading(false)
+            Alert.alert('Maaf, gagal menambahkan postingan!')
+         })
+      }
+   }
    useFocusEffect(() => {
       const backAction = () => {
          Alert.alert('Informasi', 'Apakah anda ingin Log Out ?', [
@@ -39,9 +76,11 @@ export default function Home({ navigation }) {
    })
    useEffect(() => {
       getListPost()
+      updateUserInfo()
    }, [])
    return (
       <View style={styles.wrappage}>
+         <ModalWaiting isLoading={isLoading} />
          <StatusBar
             barStyle="dark-content"
             hidden={false}
@@ -51,17 +90,29 @@ export default function Home({ navigation }) {
             <TextInput
                placeholder="Mulai bagikan sesuatu ..."
                style={styles.inppost}
+               value={newPost}
+               onChangeText={setNewPost}
                selectionColor={'#31304D'}
                multiline={true}
             />
-            <TouchableOpacity style={styles.sharebtn} activeOpacity={0.8}>
+            <TouchableOpacity
+               style={styles.sharebtn}
+               activeOpacity={0.8}
+               onPress={addNewPost}
+            >
                <Text style={styles.text}>Bagikan</Text>
             </TouchableOpacity>
          </View>
          <ScrollView style={styles.listcontent}>
             {
                posts.length ? posts.map(it => (
-                  <CardPost data={it} />
+                  <View key={it.created_date}>
+                     <CardPost
+                        data={it}
+                        name={user.name || null}
+                        deleteData={deletePost}
+                     />
+                  </View>
                ))
 
                   : (
