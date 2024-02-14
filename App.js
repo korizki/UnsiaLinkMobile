@@ -55,7 +55,7 @@ export default function App() {
 const HomeTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="User"
+      initialRouteName="Beranda"
       screenOptions={{
         tabBarActiveTintColor: '#3E54AC',
         tabBarLabelStyle: {
@@ -76,7 +76,11 @@ const HomeTabs = () => {
         name="Beranda"
         component={Home}
         options={{
-          headerShown: false,
+          title: "Beranda",
+          headerStyle: {
+            borderBottomWidth: 0.2,
+            borderBottomColor: 'rgb(230,230,230)'
+          },
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={homeIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -104,7 +108,6 @@ const HomeTabs = () => {
         name="User"
         component={Config}
         options={{
-          headerShown: false,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={userIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )

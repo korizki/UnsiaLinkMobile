@@ -107,8 +107,7 @@ const styles = StyleSheet.create({
    headcont,
    subtitle,
    container: {
-      flex: 1,
-      height: Dimensions.get("screen").height,
+      height: Dimensions.get("window").height,
       backgroundColor: '#F5F5F5',
       paddingHorizontal: 24,
       paddingVertical: 24,

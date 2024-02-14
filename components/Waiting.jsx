@@ -9,7 +9,7 @@ export default function ModalWaiting({ isLoading }) {
                <Image source={codingillus} style={styles.img} />
                <View style={styles.center}>
                   <Text style={styles.modTitle}>Mohon Tunggu</Text>
-                  <Text style={styles.sub}>Permintaan sedang kami proses ...</Text>
+                  <Text style={styles.sub}>Permintaan sedang diproses ...</Text>
                </View>
             </View>
          </View>
@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end'
    },
    modTitle: {
-      fontSize: 28,
+      fontSize: 24,
+      color: 'rgb(50,70,70)',
       fontWeight: '500',
       paddingBottom: 8,
    },
    sub: {
-      fontSize: 18,
+      fontSize: 16,
       color: 'rgb(150,150,150)'
    },
    modalwait: {
