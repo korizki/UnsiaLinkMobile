@@ -30,13 +30,13 @@ export default function Login({ navigation }) {
                   secure={false}
                   label="Email"
                   placeholder="e.g. admin@unsia.ac.id"
-                  action={text => setAuthData(prev => ({ ...prev, email: text }))}
+               // action={text => setAuthData(prev => ({ ...prev, email: text }))}
                />
                <InputField
                   secure={true}
                   label="Password"
                   placeholder="Type Your Password"
-                  action={text => setAuthData(prev => ({ ...prev, password: text }))}
+               // action={text => setAuthData(prev => ({ ...prev, password: text }))}
                />
             </View>
             <StatusBar style="auto" />
@@ -90,11 +90,11 @@ const styles = StyleSheet.create({
       height: Dimensions.get("screen").height,
       paddingHorizontal: 24,
       paddingVertical: 24,
+      paddingTop: 32,
       position: 'relative',
    },
    wrapper: {
       flex: 1,
-      // height: Dimensions.get("screen").height,
       backgroundColor: '#F5F5F5',
       position: 'relative'
    },

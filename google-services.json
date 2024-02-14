@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "323606135828",
+    "project_id": "unsia-link",
+    "storage_bucket": "unsia-link.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323606135828:android:90be37f7097bc8f5501301",
+        "android_client_info": {
+          "package_name": "com.unsialink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA63MWHhQXKQtFUgpD8bMm0Yo3cl-Qkzxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

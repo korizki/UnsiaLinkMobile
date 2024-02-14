@@ -1,40 +1,76 @@
-import { View, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, Image } from "react-native"
+import { View, Modal, Text, StatusBar, StyleSheet, Dimensions, TouchableOpacity, Image, Alert } from "react-native"
 import InputField from "../components/InputFields";
 import bgleft from '../assets/bgleft.png'
 import { pageTitle, headcont, subtitle } from "../misc/globalStyle";
+import { db } from "../config/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
 
 export default function SignUp({ navigation }) {
+   const [email, setEmail] = useState('')
+   const [password, setPassword] = useState('')
+   const [confPassword, setConfPassword] = useState('')
+   const [isLoading, setIsLoading] = useState(false)
+   const handleSubmit = async () => {
+      if (email != '' && password != '') {
+         if (password != '' && (password == confPassword)) {
+            setIsLoading(true)
+            return await addDoc(collection(db, 'user'), {
+               email, password
+            }).then(res => {
+               setIsLoading(false)
+               Alert.alert("Akun berhasil dibuat, silahkan Log In!")
+               navigation.navigate('Login')
+            }).catch(err => {
+               setIsLoading(false)
+               Alert.alert("Gagal mendaftarkan User, silahkan coba kembali!")
+            })
+         }
+         return Alert.alert("Password tidak sesuai!")
+      }
+      return Alert.alert("Ops, data belum lengkap!")
+   }
    return (
       <View style={styles.container}>
+         { /* jika loading */
+            <Modal visible={isLoading} transparent={true} animationType="slide">
+               <View style={styles.modalwrapper}>
+                  <View style={styles.modalwait}>
+                     <Text style={styles.modTitle}>Mohon Tunggu</Text>
+                     <Text style={styles.sub}>Permintaan sedang kami proses ...</Text>
+                  </View>
+               </View>
+            </Modal>
+         }
          <View style={styles.headcont}>
             <Text style={pageTitle}>Hello, Ayo Bergabung 🥳</Text>
             <Text style={subtitle}>Silahkan lengkapi form berikut.</Text>
          </View>
          <InputField
             label="Email"
+            action={prev => setEmail(prev)}
             placeholder="e.g. admin@unsia.ac.id"
-            action={() => false}
+            keyboardType="email"
             secure={false}
          />
          <InputField
             label="Password"
             placeholder="Ketikkan Password"
-            action={() => false}
+            action={setPassword}
             secure={true}
          />
          <InputField
             secure={true}
+            action={setConfPassword}
             label="Confirm Password"
             placeholder="Ulangi Ketik Password"
-            action={() => false}
          />
-         <TouchableOpacity activeOpacity={0.9} style={styles.btn}>
+         <TouchableOpacity activeOpacity={0.9} style={styles.btn} onPress={handleSubmit}>
             <Text style={styles.btntext}>Daftar</Text>
          </TouchableOpacity>
          <TouchableOpacity
             style={styles.haveac}
             activeOpacity={1}
-            onPress={() => navigation.navigate('Login')}
          >
             <Text style={styles.haveacc}>Sudah punya Akun, silahkan Login.</Text>
          </TouchableOpacity>
@@ -45,6 +81,27 @@ export default function SignUp({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+   modalwrapper: {
+      flex: 1,
+      justifyContent: 'flex-end'
+   },
+   modTitle: {
+      fontSize: 28,
+      fontWeight: '500',
+      paddingBottom: 12,
+   },
+   sub: {
+      fontSize: 18,
+      color: 'rgb(150,150,150)'
+   },
+   modalwait: {
+      backgroundColor: 'white',
+      borderTopStartRadius: 16,
+      borderTopEndRadius: 16,
+      height: 300,
+      alignItems: 'center',
+      justifyContent: 'center'
+   },
    bgleft: {
       width: 150,
       height: 150,
@@ -81,6 +138,6 @@ const styles = StyleSheet.create({
       backgroundColor: '#F5F5F5',
       paddingHorizontal: 24,
       paddingVertical: 24,
-      paddingTop: 52,
+      paddingTop: 56,
    },
 });
