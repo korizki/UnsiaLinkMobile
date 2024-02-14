@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
    const handleLogin = async () => {
       if (authData.email && authData.password) {
          setIsLoading(true)
-         const q = query(collection(db, "user"), where("email", "==", authData.email))
+         const q = query(collection(db, "user"), where("email", "==", authData.email.toLowerCase()))
          const docSnap = await getDocs(q);
          let data = []
          docSnap.forEach(it => {
@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
          if (data.length) {
             let user = data[0]
             if (user.password == authData.password) {
-               navigation.navigate("Beranda")
+               navigation.navigate("HomeTab")
             } else {
                Alert.alert('Password tidak sesuai!')
             }

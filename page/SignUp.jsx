@@ -17,7 +17,7 @@ export default function SignUp({ navigation }) {
          if (password != '' && (password == confPassword)) {
             setIsLoading(true)
             return await addDoc(collection(db, 'user'), {
-               email, password
+               email: email.toLowerCase(), password
             }).then(res => {
                setIsLoading(false)
                Alert.alert("Akun berhasil dibuat, silahkan Log In!")
