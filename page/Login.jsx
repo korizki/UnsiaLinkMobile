@@ -20,7 +20,7 @@ export default function Login({ navigation }) {
          const docSnap = await getDocs(q);
          let data = []
          docSnap.forEach(it => {
-            data.push(it.data())
+            data.push({ ...it.data(), id: it.id })
          })
          if (data.length) {
             let user = data[0]

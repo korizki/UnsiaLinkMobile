@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
    },
    modalwrapper: {
       flex: 1,
-      justifyContent: 'flex-end'
+      justifyContent: 'flex-end',
    },
    modTitle: {
       fontSize: 24,
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
       borderTopStartRadius: 16,
       gap: 32,
       borderTopEndRadius: 16,
+      borderWidth: 0.5,
+      borderColor: 'rgb(230,230,230)',
       height: '50%',
       alignItems: 'center',
       justifyContent: 'center'

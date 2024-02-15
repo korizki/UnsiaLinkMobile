@@ -1,9 +1,13 @@
 import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
 
-export default function ButtonAdd({ float, text }) {
+export default function ButtonAdd({ float, text, action }) {
    return (
       <View style={float ? styles.btnadd : styles.pad}>
-         <TouchableOpacity style={float ? styles.btn : styles.btnnofloat} activeOpacity={0.8}>
+         <TouchableOpacity
+            style={float ? styles.btn : styles.btnnofloat}
+            activeOpacity={0.8}
+            onPress={action}
+         >
             <Text style={float ? styles.text : styles.textnofloat}>{text}</Text>
          </TouchableOpacity>
       </View>

@@ -1,14 +1,16 @@
 import { TextInput, View, Text, StatusBar, StyleSheet, Dimensions } from "react-native"
 
-export default function InputField({ label, placeholder, action, secure }) {
+export default function InputField({ label, placeholder, action, secure, height }) {
    return (
       <View style={styles.container}>
          <StatusBar style="auto" />
          <Text style={styles.textinp}>{label}</Text>
          <TextInput
             secureTextEntry={secure}
-            style={styles.input}
+            style={[styles.input, height ? { minHeight: height, textAlign: 'auto' } : false]}
             placeholder={placeholder}
+            multiline={height ? true : false}
+            textContentType={label == 'Email' ? 'emailAddress' : 'none'}
             selectionColor={'#31304D'}
             onChangeText={text => action(text)}
          />

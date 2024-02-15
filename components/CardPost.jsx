@@ -37,7 +37,7 @@ const CardPost = memo(({ data, name, deleteData }) => {
             <View style={styles.botPost}>
                <View>
                   <Text style={styles.postDate}>Diposting pada :</Text>
-                  <Text >{convTime(created_date)}</Text>
+                  <Text style={{ color: 'rgb(60,60,60)' }}>{convTime(created_date)}</Text>
                </View>
                <View style={styles.wrapAdd}>
                   <TouchableOpacity
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
    },
    postDate: {
       color: 'rgb(170,170,170)',
-      marginBottom: 4,
+      marginBottom: 2,
+      fontSize: 13,
    },
    botPost: {
       flex: 1,
