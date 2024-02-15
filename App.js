@@ -55,7 +55,7 @@ export default function App() {
 const HomeTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Beranda"
+      initialRouteName="User"
       screenOptions={{
         tabBarActiveTintColor: '#3E54AC',
         tabBarLabelStyle: {
