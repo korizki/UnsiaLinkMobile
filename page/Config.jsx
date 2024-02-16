@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, StyleSheet, TextInput, Dimensions, Image, StatusBar, TouchableOpacity, Alert, Modal } from "react-native";
+import { useIsFocused } from '@react-navigation/native'
 import fotoprofile from '../assets/prof.jpg'
 import unsia from '../assets/unsia.jpg'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,11 +12,14 @@ import { faDoorOpen, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { doc, updateDoc, query, collection, where, getDocs } from "firebase/firestore";
 
 export default function Config({ navigation }) {
+   const isFocused = useIsFocused()
    const [user, setUser] = useState(null)
    const [updateName, setUpdateName] = useState('')
    const [showUpdateModal, setShowUpdateModal] = useState(false)
    const getDataUser = async () => {
-      await AsyncStorage.getItem('user').then(res => setUser(JSON.parse(res)))
+      await AsyncStorage.getItem('user').then(res => {
+         setUser(JSON.parse(res))
+      })
    }
    const handleLogout = () => {
       Alert.alert('Konfirmasi', 'Anda yakin ingin Log Out', [
@@ -26,7 +30,8 @@ export default function Config({ navigation }) {
          {
             text: 'Log Out',
             style: 'default',
-            onPress: () => {
+            onPress: async () => {
+               await AsyncStorage.removeItem('user')
                navigation.navigate('Login')
             }
          }
@@ -47,7 +52,7 @@ export default function Config({ navigation }) {
    }
    useEffect(() => {
       getDataUser()
-   }, [])
+   }, [isFocused])
    return (
       <View style={styles.wrappage}>
          <ModalUpdate

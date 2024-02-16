@@ -8,12 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDocs, deleteDoc, collection, query, addDoc, doc, serverTimestamp, orderBy, where } from "firebase/firestore";
 import CardPost from "../components/CardPost";
 import ModalWaiting from "../components/Waiting";
+import ModalComment from "../components/ModalComment";
 
 export default function Home({ navigation }) {
    const [posts, setListPost] = useState([])
    const [isLoading, setIsLoading] = useState(false)
    const [newPost, setNewPost] = useState('')
    const [user, setUser] = useState(null)
+   const [postComment, setPostComment] = useState(null)
    // get listpost
    const getListPost = async () => {
       try {
@@ -81,6 +83,11 @@ export default function Home({ navigation }) {
    return (
       <View style={styles.wrappage}>
          <ModalWaiting isLoading={isLoading} />
+         { /* tampilkan komentar dari postingan */
+            postComment ? (
+               <ModalComment data={postComment} close={() => setPostComment(null)} user={user} />
+            ) : false
+         }
          <StatusBar
             barStyle="dark-content"
             hidden={false}
@@ -111,20 +118,19 @@ export default function Home({ navigation }) {
                         data={it}
                         name={user.name || null}
                         deleteData={deletePost}
+                        openComment={setPostComment}
                      />
                   </View>
-               ))
-
-                  : (
-                     <View style={styles.nomsg}>
-                        <Image source={postIc} style={styles.nomsgimg} />
-                        <View style={styles.wrapt}>
-                           <Text style={styles.pageTitle}>Tidak Ada Berita</Text>
-                           <Text style={styles.subtitle}>Belum ada yang mem-posting sesuatu.</Text>
-                        </View>
-                        {/* <ButtonAdd float={false} text={"Buat Pesan Baru"} /> */}
+               )) : (
+                  <View style={styles.nomsg}>
+                     <Image source={postIc} style={styles.nomsgimg} />
+                     <View style={styles.wrapt}>
+                        <Text style={styles.pageTitle}>Tidak Ada Berita</Text>
+                        <Text style={styles.subtitle}>Belum ada yang mem-posting sesuatu.</Text>
                      </View>
-                  )
+                     {/* <ButtonAdd float={false} text={"Buat Pesan Baru"} /> */}
+                  </View>
+               )
             }
          </ScrollView>
       </View>

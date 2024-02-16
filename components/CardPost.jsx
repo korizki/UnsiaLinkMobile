@@ -5,7 +5,7 @@ import imguser from '../assets/ic_user.png'
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
 import { memo, useState } from "react";
 
-const CardPost = memo(({ data, name, deleteData }) => {
+const CardPost = memo(({ data, name, deleteData, openComment }) => {
    const { created_date, id_user, content, id } = data
    const [like, setLike] = useState(false)
    const handleDelete = () => {
@@ -57,6 +57,7 @@ const CardPost = memo(({ data, name, deleteData }) => {
                   <TouchableOpacity
                      style={styles.icwrap}
                      activeOpacity={0.4}
+                     onPress={() => openComment(data)}
                   >
                      <FontAwesomeIcon icon={faMessage} />
                      <Text>0</Text>

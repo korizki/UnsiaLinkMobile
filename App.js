@@ -21,12 +21,13 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="HomeTab">
           <Tab.Screen
             name="Login"
             component={Login}
             options={{
               headerShown: false,
+              unmountOnBlur: true
             }}
           />
           <Tab.Screen
@@ -34,6 +35,7 @@ export default function App() {
             component={SignUp}
             options={{
               headerShown: false,
+              unmountOnBlur: true,
               animation: 'slide_from_right'
             }}
           />
@@ -42,6 +44,7 @@ export default function App() {
             component={HomeTabs}
             options={{
               headerShown: false,
+              unmountOnBlur: true,
               animation: 'fade'
             }}
           />
@@ -57,6 +60,7 @@ const HomeTabs = () => {
     <Tab.Navigator
       initialRouteName="User"
       screenOptions={{
+        unmountOnBlur: true,
         tabBarActiveTintColor: '#3E54AC',
         tabBarLabelStyle: {
           fontSize: 11,
@@ -77,6 +81,7 @@ const HomeTabs = () => {
         component={Home}
         options={{
           title: "Beranda",
+          unmountOnBlur: true,
           headerStyle: {
             borderBottomWidth: 0.2,
             borderBottomColor: 'rgb(230,230,230)'
@@ -90,6 +95,7 @@ const HomeTabs = () => {
         name="Pesan"
         component={Message}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={msgIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -99,6 +105,7 @@ const HomeTabs = () => {
         name="Group"
         component={Group}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={groupIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
@@ -108,6 +115,7 @@ const HomeTabs = () => {
         name="User"
         component={Config}
         options={{
+          unmountOnBlur: true,
           tabBarIcon: ({ tintColor, focused }) => (
             <Image source={userIc} style={focused ? { ...styles.icon, ...styles.activeIc } : styles.icon} />
           )
